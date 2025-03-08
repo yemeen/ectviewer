@@ -1,0 +1,17 @@
+[project]
+name = "ectviewer"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "streamlit>=1.38.0",
+    "matplotlib>=3.9.2",
+    "ect>=0.1.7",
+    "shapely>=2.0.6",
+    "streamlit-drawable-canvas"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
