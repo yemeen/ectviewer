@@ -46,24 +46,19 @@ def generate_sample_data(shape, n_points=100):
         y = np.where(t < 1, 0, np.where(t < 2, t - 1, 3 - t))
         points = np.column_stack((x, y))
         edges = [(i, (i + 1) % n_points) for i in range(n_points)]
-    elif shape == "Two Moons" or shape == "Random":
-        if shape == "Two Moons":
-            points, labels = make_moons(n_samples=n_points, noise=0.1)
-            edges = []
-            moon0_indices = np.where(labels == 0)[0]
-            moon1_indices = np.where(labels == 1)[0]
+    elif shape == "Two Moons":
+        points, labels = make_moons(n_samples=n_points, noise=0.1)
+        edges = []
+        moon0_indices = np.where(labels == 0)[0]
+        moon1_indices = np.where(labels == 1)[0]
 
-            for moon_indices in [moon0_indices, moon1_indices]:
-                moon_points = points[moon_indices]
-                for i, idx in enumerate(moon_indices):
-                    distances = np.linalg.norm(moon_points - moon_points[i], axis=1)
-                    distances[i] = np.inf
-                    nearest = moon_indices[np.argsort(distances)[:2]]
-                    edges.extend([(idx, j) for j in nearest])
-        else:
-            points, edges = random_point_cloud_graph(
-                n_points, 2, np.random.default_rng()
-            )
+        for moon_indices in [moon0_indices, moon1_indices]:
+            moon_points = points[moon_indices]
+            for i, idx in enumerate(moon_indices):
+                distances = np.linalg.norm(moon_points - moon_points[i], axis=1)
+                distances[i] = np.inf
+                nearest = moon_indices[np.argsort(distances)[:2]]
+                edges.extend([(idx, j) for j in nearest])
 
     else:
         raise ValueError(f"Unknown shape: {shape}")
@@ -112,7 +107,7 @@ with left_column:
     )
 
     if data_option == "Example dataset":
-        example_shapes = ["Square", "Circle", "Triangle", "Two Moons", "Random"]
+        example_shapes = ["Square", "Circle", "Triangle", "Two Moons"]
         selected_shape = st.selectbox("Select an example shape:", example_shapes)
         n_points = st.slider(
             "Number of points", min_value=50, max_value=500, value=100, step=50
