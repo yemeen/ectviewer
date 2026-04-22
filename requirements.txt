@@ -1,8 +1,7 @@
-streamlit
+streamlit>=1.38.0
 numpy
-matplotlib
-scikit-learn
+matplotlib>=3.9.2
+ect>=1.3.0
 scipy
-shapely
-ect
-streamlit-drawable-canvas
+scikit-learn
+shapely>=2.0.6
